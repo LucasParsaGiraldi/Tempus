@@ -1,0 +1,108 @@
+﻿@model Cliente
+
+@{
+    ViewBag.Title = "Sistema Tempus";
+}
+<section class="alt">
+
+    <div class="container">
+        <div class="row">
+            <form action="@Url.Action("Manager")" method="post">
+                @Html.HiddenFor(model => model.Cliente_ID)
+                @Html.HiddenFor(model => model.Data_Cadastro)
+                <div class="col-md-4 form-group">
+                    <label>Insira o Nome do Cliente</label>
+                    <input maxlength="150" type="text" name="Nome" value="@Model.Nome" class="form-control" />
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <label>Insira o CPF do Cliente</label>
+                    <input maxlength="10" type="text" id="cpf" name="CPF" value="@Model.CPF" class="form-control cpf" />
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <label>Insira Data de Nascimento do Cliente</label>
+                    <input type="text" name="Data_Nascimento" id="data" value="@Model.Data_Nascimento" class="form-control" required />
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <label> Data de Cadatro do Cliente</label>
+                    <input type="text" name="Data_Cadastro" id="data" value="@Model.Data_Cadastro" @*placeholder="@Model.Data_Cadastro"*@ class="form-control" readonly />
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <label>Insira a Renda Familiar do Cliente</label>
+                    <input id="valor" type="text" name="Renda_Familiar" value="@Model.Renda_Familiar" class="form-control" />
+                </div>
+                <div class="">
+                    <button type="submit" onclick="return isValidCPF()" class="salvar">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js"></script>
+<script>
+
+    $(document).ready(function ($) {
+        $('#cpf').mask('999.999.999-99');
+        $('#data').mask('00/00/0000');
+        $('#valor').mask('0000000000000', { reverse: true });
+    });
+
+
+    function isValidCPF() {
+        var cpf = $("#cpf").val();
+
+        if (typeof cpf !== "string") return false
+        cpf = cpf.replace(/[\s.-]*/igm, '')
+        if (
+            !cpf ||
+            cpf.length != 11 ||
+            cpf == "00000000000" ||
+            cpf == "11111111111" ||
+            cpf == "22222222222" ||
+            cpf == "33333333333" ||
+            cpf == "44444444444" ||
+            cpf == "55555555555" ||
+            cpf == "66666666666" ||
+            cpf == "77777777777" ||
+            cpf == "88888888888" ||
+            cpf == "99999999999"
+        ) {
+            alert("CPF Inválido");
+            $("#cpf").val("");
+            $("#cpf").focus();
+            return false
+        }
+        var soma = 0
+        var resto
+        for (var i = 1; i <= 9; i++)
+            soma = soma + parseInt(cpf.substring(i - 1, i)) * (11 - i)
+        resto = (soma * 10) % 11
+        if ((resto == 10) || (resto == 11)) resto = 0
+        if (resto != parseInt(cpf.substring(9, 10))) {
+            alert("CPF Inválido");
+            $("#cpf").val("");
+            $("#cpf").focus();
+            return false
+            $('button').even
+        }
+        soma = 0
+        for (var i = 1; i <= 10; i++)
+            soma = soma + parseInt(cpf.substring(i - 1, i)) * (12 - i)
+        resto = (soma * 10) % 11
+        if ((resto == 10) || (resto == 11)) resto = 0
+        if (resto != parseInt(cpf.substring(10, 11))) {
+            alert("CPF Inválido");
+            $("#cpf").val("");
+            $("#cpf").focus();
+            return false
+        }
+        return true
+    }
+</script>

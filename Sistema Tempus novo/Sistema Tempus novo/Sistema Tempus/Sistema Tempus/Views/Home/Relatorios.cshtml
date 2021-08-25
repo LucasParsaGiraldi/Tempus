@@ -1,0 +1,65 @@
+﻿@model Sistema_Tempus.Models.ClienteModel
+
+@{
+    ViewBag.Title = "Sistema Tempus Relatórios";
+}
+
+<section id="relatorios">
+
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-4 box">
+                <div class="item idade-maior">
+                    <div>
+                        <b>Número</b>
+                        <span class="numero">
+                            @Model.MaiorDeIdade
+                        </span>
+                    </div>
+                    <div class="col-md-offset-6">
+                        <label>Maiores de idade com rendar maior que a media</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 datas">
+                <label>ESCOLHA UMA DATA</label>
+                <a href="@Url.RouteUrl("relatorios", new {data = 1 })">
+                    Hoje
+                </a>
+                <a href="@Url.RouteUrl("relatorios", new {data = 2 })">
+                    Dessa Semana 
+                </a>
+                <a href="@Url.RouteUrl("relatorios", new {data = 3 })">
+                    Mês Passado
+                </a>
+            </div>
+            <div class="  col-md-4 box">
+                <div class="item">
+                    <ul>
+                        <li>
+                            <b>Número</b>
+                        </li>
+                        <li>
+                            <span class="ball-A "></span>   @Model.ClasseA
+                        </li>
+                        <li>
+                            <span class="ball-B"></span>   @Model.ClasseB
+                        </li>
+                        <li>
+                            <span class="ball-C"></span>     @Model.ClasseC
+                        </li>
+                    </ul>
+                    <ul class="classes">
+                        <li class="first"> Classe A <span class="ball-A"></span></li>
+                        <li>Classe B <span class="ball-B"></span></li>
+                        <li>Classe C <span class="ball-C"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</section>

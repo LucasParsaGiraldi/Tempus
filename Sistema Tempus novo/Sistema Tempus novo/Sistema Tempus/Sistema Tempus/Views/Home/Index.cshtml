@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Cliente>
+
+@{
+    ViewBag.Title = "Sistema Tempus";
+}
+
+<section id="crud">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a class="button" href="@Url.Action("Manager")">Novo Registro </a>
+            </div>
+            <div class="table-responsive-sm">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">CPF</th>
+                            <th scope="col">Data de Nascimento</th>
+                            <th scope="col">Data Cadastro</th>
+                            <th scope="col">Renda Familiar</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Nome</td>
+                                <td>@item.CPF</td>
+                                <td>@item.Data_Nascimento.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@item.Data_Cadastro.Value.ToString("dd/MM/yyyy")</td>
+                                <td class="value"><span class="@(item.Renda_Familiar.Value < 980 ? "classeA" : item.Renda_Familiar.Value >= 980 && item.Renda_Familiar <= 2500 ? "classeB" : item.Renda_Familiar > 2500 ? "classeC" : "")">@item.Renda_Familiar.Value.ToString("c") </span> </td>
+
+                                <td>
+                                    <div class="link">
+                                        <a href="@Url.Action("Delete", new { id = item.Cliente_ID })" class="excluir">Excluir</a>
+                                        <a href="@Url.Action("Manager", new {id = item.Cliente_ID })" class="alterar">Alterar</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</section>
